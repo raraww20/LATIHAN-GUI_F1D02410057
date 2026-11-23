@@ -1,4 +1,4 @@
-# LATIHAN-GUI_F1D02410057# Toko Bunga (Java Swing)
+# Toko Bunga 
 
 Aplikasi GUI sederhana untuk memilih bunga, memasukkannya ke keranjang, dan menghitung total belanja.
 Dibuat dengan Java Swing, hanya memakai tiga import:
