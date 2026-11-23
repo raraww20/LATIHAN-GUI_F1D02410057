@@ -19,6 +19,7 @@ public class PanelKatalog extends JPanel {
     private final JSpinner spnJumlah = new JSpinner(new SpinnerNumberModel(1, 1, 99, 1));
 
     public PanelKatalog(Keranjang keranjang, PanelKeranjang panelKeranjang) {
+
         this.keranjang = keranjang;
         this.panelKeranjang = panelKeranjang;
 
@@ -26,19 +27,29 @@ public class PanelKatalog extends JPanel {
         setBorder(BorderFactory.createTitledBorder("Katalog Bunga"));
 
         JPanel panelTombol = new JPanel(new GridLayout(3, 2, 8, 8));
+
         TambahListener aksi = new TambahListener();
         HoverAdapter hover = new HoverAdapter();
 
         for (Bunga b : daftarBunga) {
-            JButton btn = new JButton("<html><center>" + b.getNama()
-                    + "<br>Rp " + b.getHarga() + "</center></html>");
+
+            JButton btn = new JButton(
+                    "<html><center>"
+                    + b.getNama()
+                    + "<br>Rp " + b.getHarga()
+                    + "</center></html>"
+            );
+
             btn.putClientProperty("bunga", b);
             btn.addActionListener(aksi);
             btn.addMouseListener(hover);
             panelTombol.add(btn);
         }
 
-        JPanel panelJumlah = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 5));
+        JPanel panelJumlah = new JPanel(
+                new FlowLayout(FlowLayout.CENTER, 8, 5)
+        );
+
         panelJumlah.add(new JLabel("Jumlah tangkai:"));
         panelJumlah.add(spnJumlah);
 
@@ -47,25 +58,36 @@ public class PanelKatalog extends JPanel {
     }
 
     private class TambahListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton btn = (JButton) e.getSource();
+
             Bunga b = (Bunga) btn.getClientProperty("bunga");
+
+            // Mengambil jumlah bunga dari spinner
             int jumlah = (Integer) spnJumlah.getValue();
+
             keranjang.tambah(b, jumlah);
+
             panelKeranjang.perbarui();
         }
     }
 
     private static class HoverAdapter extends MouseAdapter {
+
         @Override
         public void mouseEntered(MouseEvent e) {
-            ((JButton) e.getSource()).setBackground(Color.PINK);
+
+            // Mengubah warna tombol menjadi pink
+            JButton btn = (JButton) e.getSource();
+            btn.setBackground(Color.PINK);
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            ((JButton) e.getSource()).setBackground(UIManager.getColor("Button.background"));
+            JButton btn = (JButton) e.getSource();
+            btn.setBackground(UIManager.getColor("Button.background"));
         }
     }
 }
